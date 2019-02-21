@@ -63,34 +63,14 @@ Vagrant.configure("2") do |config|
   # config.vm.provision "shell", inline: <<-SHELL
    #  yum install nmap -y
 
-	config.vm.define "load_balancer" do |lb|
+	config.vm.define "loadBalancer" do |lb|
 	lb.vm.box = "centos_7"
-	lb.hostname = "load_balancer"
+	lb.vm.hostname = "loadBalancer"
 	lb.vm.network "private_network", ip: "192.168.56.2"
 	end
 	
-
-  	config.vm.define "web1" do |web1|
-    	web1.vm.box = "centos_7"
-    	web1.vm.network "private_network", ip: "192.168.56.3"
-  	end
-
-  	config.vm.define "web2" do |web2|
-    	web2.vm.box = "centos/7"
-    	web2.vm.network "private_network", ip: "192.168.56.4"
-  	end
-
-  	config.vm.define "db" do |db|
-    	db.vm.box = "centos/7"
-    	db.vm.network "private_network", ip: "192.168.56.5"
-	end
-
-
-
-
-
 	config.vm.provision "ansible" do |ansible|
-	ansible.playbook = "lbprovision.yml"
+	ansible.playbook= "lbprovision.yml"
 	end
 
 end

@@ -1,7 +1,7 @@
 # ARCHIVO PARA PROVISIONAMIENTO DEL BALANCEADOR DE CARGA
 #
 #
-- hosts: load_balancer
+- hosts: loadBalancer
   sudo: yes
   gather_facts: no
 
@@ -22,4 +22,4 @@
           -name: restart haproxy
            service: name=haproxy state=restarted
 
- 
+           
