@@ -1,0 +1,25 @@
+# ARCHIVO PARA PROVISIONAMIENTO DEL BALANCEADOR DE CARGA
+#
+#
+- hosts: load_balancer
+  sudo: yes
+  gather_facts: no
+
+
+  tasks:
+          -name: install haproxy
+           yum: name=haproxy state=installed update_cache=yes
+           
+          -name: write our haproxy.cfg 
+           template: src=template/ha.cfg dest=/etc/haproxy/haproxy.cfg mode=644 owner= root group= root
+           notify: restart haproxy
+
+          -name: start haproxy
+           service: name=haproxy state=started
+
+  handlers:
+
+          -name: restart haproxy
+           service: name=haproxy state=restarted
+
+ 
