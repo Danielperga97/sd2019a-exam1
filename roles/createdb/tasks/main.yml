@@ -15,6 +15,9 @@
     - python-psycopg2
   tags: packages
 
+- name: Ensrue that the Database is available
+  command: postgresql-setup initdb
+
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started enabled=yes
 
