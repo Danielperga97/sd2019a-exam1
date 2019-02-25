@@ -1,4 +1,4 @@
 ---
-db_user: root
-db_name: root
+db_user: postgres
+db_name: estudiantes
 db_password: password

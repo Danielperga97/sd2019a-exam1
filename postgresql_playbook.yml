@@ -1,9 +1,8 @@
 ---
 - name: Create a Postgresql DB server
-  hosts: database
-  sudo: yes
-  sudo_user: root
-  remote_user: centos
+  hosts: all
+  become: true
+  become_method: sudo
   vars_files:
           - vars/main.yml
 
