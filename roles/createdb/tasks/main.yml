@@ -15,6 +15,34 @@
     - python-psycopg2
   tags: packages
 
+  #- name: Create cluster postgresql
+  #  command: service postgresql-setup initdb
+
+- name: add new configuration to "postgresql.conf"
+  blockinfile:
+          dest: /var/lib/pgsql/data/postgresql.conf
+          block: |
+            include 'server.conf'
+
+- name: add new configuration to "server.conf"
+  blockinfile:
+          create: yes
+          dest: /var/lib/pgsql/data/server.conf
+          block: |
+            listen_addresses = '*'
+            wal_level = hot_standby
+            checkpoint_segments = 10
+            max_wal_senders = 6
+            wal_kepp_segments = 10
+            hot_standby = on
+
+- name: add new configuration to "pg_hba.conf"
+  blockinfile:
+          dest: /var/lib/pgsql/data/pg_hba.conf
+          block: |
+            host all         all        0.0.0.0/0  trust
+            host replication replicant  0.0.0.0/0  trust
+
 - name: Ensure the PostgreSQL service is running
   service: name=postgresql state=started enabled=yes
 
