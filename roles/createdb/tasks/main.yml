@@ -65,5 +65,6 @@
   become_method: sudo
   lineinfile:
     line: "host    all             all             0.0.0.0/0               trust"
+    insertbefore: BOF
     dest: "/var/lib/pgsql/data/pg_hba.conf"
 
