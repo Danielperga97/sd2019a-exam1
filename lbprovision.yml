@@ -4,22 +4,25 @@
 - hosts: loadBalancer
   sudo: yes
   gather_facts: no
-
-
   tasks:
-          -name: install haproxy
-           yum: name=haproxy state=installed update_cache=yes
+  - name: install haproxy
+    yum:
+     name: haproxy
            
-          -name: write our haproxy.cfg 
-           template: src=template/ha.cfg dest=/etc/haproxy/haproxy.cfg mode=644 owner= root group= root
-           notify: restart haproxy
+  - name: write our haproxy.cfg 
+    template: 
+      src: /etc/haproxy/haproxy.cfg 
+      dest: /etc/haproxy/haproxy.cfg
+      notify: restart haproxy
 
-          -name: start haproxy
-           service: name=haproxy state=started
+  - name: start haproxy
+    service: 
+      name: haproxy 
+      state: started
+  - name: restart haproxy
+    service:
+     name: haproxy
+     state: restarted
 
-  handlers:
 
-          -name: restart haproxy
-           service: name=haproxy state=restarted
 
-           
